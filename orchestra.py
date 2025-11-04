@@ -7,6 +7,10 @@ from ollama import ChatResponse
 app = Flask(__name__)
 CORS(app) # Enable CORS for all routes and all origins (*)
 
+filename = "log_" + datetime.now().strftime("%Y-%m-%d") + ".txt"
+with open(filename, 'a') as file:
+    pass
+
 
 # This is your API endpoint, matching the 'data-api-url' you set in Moodle
 # For example, if your Moodle setting is "http://localhost:5000/api/chatbot"
@@ -62,11 +66,11 @@ def chatbot_endpoint():
     # Write data to text file: Open a file in write mode ('w') or append mode ('a')
     # 'w' will create the file if it doesn't exist, and overwrite it if it does.
     # 'a' will create the file if it doesn't exist, and append to it if it does.
-    with open('output.txt', 'w') as f:
+    with open(f"{filename}", 'a', encoding="utf-8") as f:
     # Print a string to the file
-        print("This message will be written to the file.", file=f)
-        print("Another line for the file.", file=f)
-
+        print(f"{timestamp};{userid};{firstname} {lastname};{user_message};{response.message.content.replace('\r', '\\n').replace('\n', '\\n')};{tps}", file=f)
+        #print(f"Another line for the file.", file=f)
+    print(response.message.content.replace('\r', '\\n').replace('\n', '\\n'))
     # --- Your Chatbot Logic Goes Here ---
     # In a real-world scenario, you'd integrate with:
     # - A large language model (LLM) like OpenAI, Google Gemini, etc.
