@@ -12,13 +12,13 @@ with open(filename, 'a') as file:
 
 # Configuration for ANYTHINGLLM
 API_BASE_URL = "http://127.0.0.1:3001/api"
-API_KEY = "Bearer S6X81SX-5SFM0EA-GAB20E0-WJ3VXPQ"
+API_KEY = "S6X81SX-5SFM0EA-GAB20E0-WJ3VXPQ"
 WORKSPACE_SLUG = "mainworkspace"
 
 
 headers = {
     "Content-Type": "application/json",
-    "Authorization": API_KEY,
+    "Authorization": f"Bearer {API_KEY}",
 }
 
 # This is your API endpoint, matching the 'data-api-url' you set in Moodle
@@ -153,7 +153,7 @@ def chatbot_endpoint():
     # montando a resposta:
     bot_reply = (
         #f"UID: {userid} - Instance: {instance_id} "
-        f"(Received at {timestamp})"
+        f"({timestamp})"
         f"\n{response['textResponse']}"
      
     )
